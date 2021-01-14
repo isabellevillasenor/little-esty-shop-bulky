@@ -124,11 +124,12 @@ RSpec.describe 'merchant dashboard' do
     visit merchant_dashboard_index_path(@merchant1)
 
     click_link "Discounts"
-
-    expect(current_path).to eq(merchant_bulk_discounts(@merchant1.id))
+    
+    expect(current_path).to eq(merchant_bulk_discounts_path(@merchant1.id))
     expect(page).to have_content(@bulk_discount1.percentage_discount)
     expect(page).to have_content(@bulk_discount1.quantity_threshold)
     expect(page).to have_content(@bulk_discount2.percentage_discount)
     expect(page).to have_content(@bulk_discount2.quantity_threshold)
   end
 end
+

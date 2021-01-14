@@ -36,9 +36,9 @@ RSpec.describe 'merchant dashboard' do
     @transaction5 = Transaction.create!(credit_card_number: 102938, result: 1, invoice_id: @invoice_6.id)
     @transaction6 = Transaction.create!(credit_card_number: 879799, result: 1, invoice_id: @invoice_7.id)
     @transaction7 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_2.id)
-
-    @bulk_discount1 = BulkDiscount.create!(percentage_discount: 20, quantity_threshold: 15, merchant_id: @merchant1.id)
-    @bulk_discount2 = BulkDiscount.create!(percentage_discount: 30, quantity_threshold: 30, merchant_id: @merchant1.id)
+    
+    @bulk_discount1 = BulkDiscount.create!(percentage_discount: 20, quantity_threshold: 15, merchant_id: @merchant1.id, item_id: @item_1.id)
+    @bulk_discount2 = BulkDiscount.create!(percentage_discount: 30, quantity_threshold: 30, merchant_id: @merchant1.id, item_id: @item_4.id)
 
     visit merchant_dashboard_index_path(@merchant1)
   end

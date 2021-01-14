@@ -19,8 +19,10 @@ ActiveRecord::Schema.define(version: 2021_01_14_214416) do
     t.float "percentage_discount"
     t.integer "quantity_threshold"
     t.bigint "merchant_id"
+    t.bigint "item_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_bulk_discounts_on_item_id"
     t.index ["merchant_id"], name: "index_bulk_discounts_on_merchant_id"
   end
 
@@ -85,6 +87,7 @@ ActiveRecord::Schema.define(version: 2021_01_14_214416) do
     t.index ["invoice_id"], name: "index_transactions_on_invoice_id"
   end
 
+  add_foreign_key "bulk_discounts", "items"
   add_foreign_key "bulk_discounts", "merchants"
   add_foreign_key "invoice_items", "invoices"
   add_foreign_key "invoice_items", "items"

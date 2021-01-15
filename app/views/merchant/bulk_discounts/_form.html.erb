@@ -1,0 +1,7 @@
+ <%= form_with model: @bulk_discount, method: method, url: url, class: 'discount_form', local: true do |f| %>  
+    <%= f.label :name, 'Percentage:' %><br>
+    <%= f.text_field :percentage_discount%><br>
+    <%= f.label :name, 'Threshold:' %><br>
+    <%= f.text_field :quantity_threshold%><br>
+    <%= f.submit %>
+  <% end %>

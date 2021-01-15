@@ -4,10 +4,11 @@ class Merchant::BulkDiscountsController < ApplicationController
   end
   
   def show
-
+    
   end
 
   def new
+    # require 'pry'; binding.pry
     find_merchant
   end
 

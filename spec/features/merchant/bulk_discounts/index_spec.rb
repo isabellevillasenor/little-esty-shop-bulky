@@ -45,17 +45,16 @@ RSpec.describe 'Bulk Index', type: :feature do
     it 'I see a link to create a new discount, when I click this link I am takent to a new page where I see a form to add a new discount, when I fill this in with valid data then I am redirected back to the index and see the new discount' do
     visit merchant_dashboard_index_path(@merchant1)
 
+    click_link "Discounts"
+    expect(current_path).to eq(merchant_bulk_discounts_path(@merchant1.id))
+    
     click_link "Create Discount"
-    
-    expect(current_path).to eq(new_merchant_bulk_discount_path(@merchant1.id))
-    
     fill_in "percentage_discount", with: '50'
     fill_in "quantity_threshold", with: '50'
     select("#{@item_1.name}", from: "item_id")
     click_button "Save"
     
     expect(current_path).to eq(merchant_bulk_discounts_path(@merchant1.id))
-  
     expect(page).to have_content(50)
     end
   end

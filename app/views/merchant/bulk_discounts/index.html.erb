@@ -1,6 +1,9 @@
 <h1> Bulk Discounts </h1>
 
-<%  @discounts.each do |discount|%>
+<% @discounts.each do |discount|%>
+<p><%=discount.item.name  %><p>
 <p>Discount: <%= discount.percentage_discount %><p>
 <p>Minimum Quantity: <%= discount.quantity_threshold %><p><br>
 <% end %>
+
+<li><%= link_to 'Create Discount', new_merchant_bulk_discount_path, class: 'link_1', style: 'pull-right' %>

@@ -48,12 +48,14 @@ RSpec.describe 'Bulk Index', type: :feature do
     click_link "Create Discount"
     
     expect(current_path).to eq(new_merchant_bulk_discount_path(@merchant1.id))
-    save_and_open_page
+    
     fill_in "percentage_discount", with: '50'
     fill_in "quantity_threshold", with: '50'
+    select("#{@item_1.name}", from: "item_id")
     click_button "Save"
     
-    expect(current_path).to eq(merchant_bulk_discount_path(@merchant1.id))
+    expect(current_path).to eq(merchant_bulk_discounts_path(@merchant1.id))
+  
     expect(page).to have_content(50)
     end
   end

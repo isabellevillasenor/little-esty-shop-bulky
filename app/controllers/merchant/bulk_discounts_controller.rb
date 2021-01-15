@@ -12,10 +12,9 @@ class Merchant::BulkDiscountsController < ApplicationController
   end
 
   def create
-    # require 'pry'; binding.pry
     BulkDiscount.create!(bulk_discount_params_create)
     flash.notice = 'Discount Has Been Created!'
-    redirect_to merchant_dashboard_index_path(params[:merchant_id])
+    redirect_to merchant_bulk_discounts_path(params[:merchant_id])
   end
 
   private

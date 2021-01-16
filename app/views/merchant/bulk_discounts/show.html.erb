@@ -1,0 +1,33 @@
+<div class="nav-container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <p class="navbar-text"><%= @merchant.name %></p>
+    <ul class="nav navbar-nav">
+      <li><%= link_to 'Dashboard', merchant_dashboard_index_path, style: 'pull-right' %>
+      <%= link_to 'My Items', merchant_items_path(@merchant), style: 'pull-right' %>
+      <%= link_to 'My Invoices', merchant_invoices_path(@merchant), style: 'pull-right' %></li>
+    </ul>
+  </nav>
+</div>
+
+<body>
+  <div class="row">
+    <p class='col-12'>Discount <%= @discount.id %> Info</p>
+  </div>
+
+  <h4>Requirements for Discount:</h4>
+    <table class="table">
+    <thead>
+      <tr class="tr">
+        <th class="th1">Quantity Needed</th>
+        <th class="th1">Discount Given</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr class="tr">
+        <td style="text-align:center"><%= @discount.quantity %></td>
+        <td style="text-align:center"><%= @discount.discount %></td>
+      </tr>
+    </tbody>
+    </table>
+</body>

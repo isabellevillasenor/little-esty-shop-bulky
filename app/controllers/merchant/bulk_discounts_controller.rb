@@ -1,11 +1,11 @@
 class Merchant::BulkDiscountsController < ApplicationController
-  before_action :set_merchant, only: [:index, :new, :create, :destroy]
+  before_action :set_merchant
   def index
     @discounts = @merchant.bulk_discounts
   end
 
   def show
-    
+    @discount = BulkDiscount.find(params[:id])
   end
 
   def new

@@ -14,23 +14,30 @@ class Invoice < ApplicationRecord
 
   def total_revenue
     apply_discount
-    # require 'pry'; binding.pry
     invoice_items.sum("unit_price * quantity")
   end
 
   def apply_discount
-    ii = self.invoice_items[0]
+    ii = self.invoice_items
     # require 'pry'; binding.pry
     self.items.each do |item|
       item.bulk_discounts.each do |discount|
-        
-        if ii.quantity >= discount.quantity_threshold
-          ii.unit_price = (ii.unit_price * (100 - discount.percentage_discount)/ 100)
-        else
-          ii.unit_price = ii.unit_price
+        ii.each do |i_item|
+          if i_item.quantity >= discount.quantity_threshold
+            i_item.unit_price = (i_item.unit_price * (100 - discount.percentage_discount)/ 100)
+          else
+           i_item.unit_price = i_item.unit_price
+          end
         end
-        # require 'pry'; binding.pry
       end
+    end
+  end
+
+  def check_discount
+    if i_item.quantity >= discount.quantity_threshold
+      i_item.unit_price = (i_item.unit_price * (100 - discount.percentage_discount)/ 100)
+    else
+     i_item.unit_price = i_item.unit_price
     end
   end
 end

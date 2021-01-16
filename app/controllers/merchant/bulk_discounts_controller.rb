@@ -26,7 +26,6 @@ class Merchant::BulkDiscountsController < ApplicationController
 
   def update
     @discount = BulkDiscount.find(params[:id])
-    # require 'pry'; binding.pry
     @discount.update(bulk_discount_params)
     redirect_to merchant_bulk_discount_path(id: @discount.id, merchant_id: @discount.merchant_id)
   end

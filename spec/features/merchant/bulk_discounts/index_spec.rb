@@ -30,4 +30,12 @@ describe 'Merchant Bulk Discount Dashboard' do
 
     expect(current_path).to eq(merchant_bulk_discount_path(@m1, @d1))
   end
+  
+  it 'should have a link to create a new bulk discount' do
+    expect(page).to have_link('Create New Bulk Discount')
+    click_link 'Create New Bulk Discount'
+    
+    expect(current_path).to eq(new_merchant_bulk_discount_path(@m1))
+  end
+
 end

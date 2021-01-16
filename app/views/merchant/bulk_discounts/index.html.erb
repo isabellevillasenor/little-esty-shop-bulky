@@ -14,6 +14,9 @@
     <p class='col-12'>My Discounts</p>
   </div>
 
+  <%= link_to 'Create New Bulk Discount', new_merchant_bulk_discount_path %><br/>
+  <br>
+  
   <% @discounts.each do |d| %>
     <li><b><%= link_to "Discount: #{d.discount}%", merchant_bulk_discount_path(@merchant, d) %></b> off of <%= d.quantity %> or more.</li>
   <% end %>

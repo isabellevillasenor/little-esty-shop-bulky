@@ -1,0 +1,20 @@
+<div class="nav-container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <p class="navbar-text"><%= @merchant.name %></p>
+    <ul class="nav navbar-nav">
+      <li><%= link_to 'Dashboard', merchant_dashboard_index_path, style: 'pull-right' %>
+      <%= link_to 'My Items', merchant_items_path(@merchant), style: 'pull-right' %>
+      <%= link_to 'My Invoices', merchant_invoices_path(@merchant), style: 'pull-right' %></li>
+    </ul>
+  </nav>
+</div>
+
+<body>
+  <div class="row">
+    <p class='col-12'>My Discounts</p>
+  </div>
+
+  <% @discounts.each do |d| %>
+    <li><b><%= link_to "Discount: #{d.discount}%", merchant_bulk_discount_path(@merchant, d) %></b> off of <%= d.quantity %> or more.</li>
+  <% end %>
+</body>

@@ -8,8 +8,16 @@ class Merchant::BulkDiscountsController < ApplicationController
   end
 
   def new
-    # require 'pry'; binding.pry
     find_merchant
+  end
+
+  def destroy
+    @discount=BulkDiscount.find(params[:id])
+    @discount.destroy
+    # require 'pry'; binding.pry
+    flash.notice="Discount was deleted"
+
+    redirect_to merchant_bulk_discounts_path(params[:merchant_id])
   end
 
   def create

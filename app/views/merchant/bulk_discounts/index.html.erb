@@ -1,10 +1,10 @@
 <h1> Bulk Discounts </h1>
-<h4><li><%= link_to 'Create Discount', new_merchant_bulk_discount_path, class: 'link_1', style: 'pull-right' %></h4>
+<h4><li><%= link_to 'Create Discount', new_merchant_bulk_discount_path, class: 'link_1', style: 'pull-right' %></h4><br>
 
 <% @discounts.each do |discount|%>
 <p><%=discount.item.name  %><p>
 <p>Discount: <%= discount.percentage_discount %><p>
-<p>Minimum Quantity: <%= discount.quantity_threshold %><p><br>
+<p>Minimum Quantity: <%= discount.quantity_threshold %><p>
 <p><%= link_to 'Delete', { controller: "bulk_discounts", action: "destroy", id: discount.id }, data: { confirm: 'Are you sure?' }, method: :delete %></p>
 <% end %>
 

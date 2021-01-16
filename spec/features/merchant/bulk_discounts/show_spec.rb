@@ -36,12 +36,28 @@ RSpec.describe 'as a merchant', type: :feature do
 
     it 'When I visit my bulk discount show page I see the bulk discounts quantity and price' do
       # require 'pry'; binding.pry
-      visit "merchant/#{@merchant1.id}/bulk_discounts/#{@bulk_discount1.id}"
+      visit merchant_bulk_discount_path(id: @bulk_discount1.id, merchant_id: @bulk_discount1.merchant_id)
 
       expect(page).to have_content(@bulk_discount1.percentage_discount)
       expect(page).to have_content(@bulk_discount1.quantity_threshold)
+    end
 
+    it 'when I visit the show page I see a link to edit the discount, when i click this link I am taken to a new page to edit, after submitting I am back at the show page and see the update' do
+      visit merchant_bulk_discount_path(id: @bulk_discount1.id, merchant_id: @bulk_discount1.merchant_id)
+      click_link "Update Discount"
       
+      expect(current_path).to eq(edit_merchant_bulk_discount_path(id: @bulk_discount1.id, merchant_id: @bulk_discount1.merchant_id))
+  
+      # expect(page).to have_content(@bulk_discount1.percentage_discount)
+      # expect(page).to have_content(@bulk_discount1.quantity_threshold)
+
+      fill_in "percentage_discount", with: '50'
+      fill_in "quantity_threshold", with: '100'
+      click_button "Save"
+
+      expect(current_path).to eq(merchant_bulk_discount_path(id: @bulk_discount1.id, merchant_id: @bulk_discount1.merchant_id))
+      expect(page).to have_content(50)
+      expect(page).to have_content(100)
     end
   end
 end

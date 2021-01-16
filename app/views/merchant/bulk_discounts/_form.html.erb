@@ -1,0 +1,7 @@
+<%= form_with model: model, method: method, url: url, class: 'merchant_discount_form', local: true do |f| %>
+  <%= f.label :discount, 'Discount Percentage in Numbers Only(00.00)' %><br>
+  <%= f.text_field :discount %><br/><br/>
+  <%= f.label :quantity %><br>
+  <%= f.text_field :quantity %><br/><br/>
+  <%= f.submit %>
+<% end %>

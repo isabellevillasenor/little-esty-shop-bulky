@@ -46,12 +46,14 @@ RSpec.describe 'as a merchant', type: :feature do
       visit merchant_bulk_discount_path(id: @bulk_discount1.id, merchant_id: @bulk_discount1.merchant_id)
 
       click_link "Update Discount"
-      expect(current_path).to eq(merchant_bulk_discount_path(id: @bulk_discount1.id, merchant_id: @bulk_discount1.merchant_id))
+      save_and_open_page
+      expect(current_path).to eq(edit_merchant_bulk_discount_path(id: @bulk_discount1.id, merchant_id: @bulk_discount1.merchant_id))
       expect(page).to have_content(@bulk_discount1.percentage_discount)
-      expect(page).to have_content(@bulk_discount1.quantity)
+      expect(page).to have_content(@bulk_discount1.quantity_threshold)
+
       fill_in "percentage_discount", with: '50'
       fill_in "quantity_threshold", with: '100'
-      click_button "Submit"
+      click_button "Save"
 
       expect(current_path).to eq(merchant_bulk_discount_path(id: @bulk_discount1.id, merchant_id: @bulk_discount1.merchant_id))
       expect(page).to have_content(50)

@@ -44,10 +44,10 @@ RSpec.describe 'as a merchant', type: :feature do
 
     it 'when I visit the show page I see a link to edit the discount, when i click this link I am taken to a new page to edit, after submitting I am back at the show page and see the update' do
       visit merchant_bulk_discount_path(id: @bulk_discount1.id, merchant_id: @bulk_discount1.merchant_id)
-
       click_link "Update Discount"
-      # save_and_open_page
+      
       expect(current_path).to eq(edit_merchant_bulk_discount_path(id: @bulk_discount1.id, merchant_id: @bulk_discount1.merchant_id))
+  
       # expect(page).to have_content(@bulk_discount1.percentage_discount)
       # expect(page).to have_content(@bulk_discount1.quantity_threshold)
 

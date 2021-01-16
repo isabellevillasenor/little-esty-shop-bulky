@@ -11,6 +11,12 @@ class Merchant::BulkDiscountsController < ApplicationController
     find_merchant
   end
 
+  def edit
+    find_merchant
+    @discount = BulkDiscount.find(params[:id])
+    # require 'pry'; binding.pry
+  end
+
   def destroy
     @discount=BulkDiscount.find(params[:id])
     @discount.destroy
@@ -26,7 +32,11 @@ class Merchant::BulkDiscountsController < ApplicationController
 
   def update
     @discount = BulkDiscount.find(params[:id])
-    @discount.update(bulk_discount_params)
+    if @discount.save
+      @discount.update(bulk_discount_params)
+    else
+      render edit
+    end
     redirect_to merchant_bulk_discount_path(id: @discount.id, merchant_id: @discount.merchant_id)
   end
 

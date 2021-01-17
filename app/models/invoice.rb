@@ -18,26 +18,41 @@ class Invoice < ApplicationRecord
   end
 
   def apply_discount
-    ii = self.invoice_items
-    # require 'pry'; binding.pry
-    self.items.each do |item|
-      item.bulk_discounts.each do |discount|
-        ii.each do |i_item|
-          if i_item.quantity >= discount.quantity_threshold
-            i_item.unit_price = (i_item.unit_price * (100 - discount.percentage_discount)/ 100)
-          else
-           i_item.unit_price = i_item.unit_price
-          end
-        end
-      end
-    end
+     whiskey = best_discount
+     whiskey.each do |item, discount|
+      item.unit_price = (item.unit_price * (100 - discount.percentage_discount)/ 100)
+      item.update(unit_price: item.unit_price)
+      # require 'pry'; binding.pry
+     end
   end
 
-  def check_discount
-    if i_item.quantity >= discount.quantity_threshold
-      i_item.unit_price = (i_item.unit_price * (100 - discount.percentage_discount)/ 100)
-    else
-     i_item.unit_price = i_item.unit_price
+  def best_discount
+    item_discounts_hash = find_discounts
+    item_discounts_hash.each do |item, discounts|
+      item_discounts_hash[item] = discounts.max_by{|discount| discount.percentage_discount}
+    end
+    item_discounts_hash
+  end
+  
+  def find_discounts
+    items_from_invoice = get_invoice_items
+    discounts = get_discounts
+    collector = Hash.new{|h, k| h[k] = [] }
+    items_from_invoice.each do |item|
+      discounts.each do |discount|
+        collector[item] << discount if item.item_id == discount.item_id && item.quantity >= discount.quantity_threshold    
+      end
+    end
+    collector
+  end
+
+  def get_invoice_items
+    self.invoice_items
+  end
+
+  def get_discounts
+    discounts = self.items.flat_map do |item|
+      item.bulk_discounts
     end
   end
 end

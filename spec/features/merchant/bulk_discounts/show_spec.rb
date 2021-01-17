@@ -16,7 +16,14 @@ describe 'Merchant Discount Show Page' do
   it 'should show the discounts quantity and discount percentage' do
     expect(page).to have_content(@d1.quantity)
     expect(page).to have_content(@d1.discount)
-    
+
     expect(page).to_not have_content(@d2.discount)
+  end
+
+  it 'should have a link to edit the discount' do
+    expect(page).to have_link('Edit This Discount')
+    click_link 'Edit This Discount'
+    
+    expect(current_path).to eq(edit_merchant_bulk_discount_path(@m1, @d1))
   end
 end

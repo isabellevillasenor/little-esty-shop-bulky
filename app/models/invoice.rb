@@ -22,7 +22,6 @@ class Invoice < ApplicationRecord
      whiskey.each do |item, discount|
       item.unit_price = (item.unit_price * (100 - discount.percentage_discount)/ 100)
       item.update(unit_price: item.unit_price)
-      # require 'pry'; binding.pry
      end
   end
 

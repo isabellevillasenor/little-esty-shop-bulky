@@ -1,8 +1,12 @@
 require 'rails_helper'
+# include ActionView::Helpers::NumberHelper
 
 describe 'Admin Invoices Index Page' do
   before :each do
     @m1 = Merchant.create!(name: 'Merchant 1')
+
+    @d1 = @m1.bulk_discounts.create!(discount: 15.0, quantity:10)
+    @d2 = @m1.bulk_discounts.create!(discount: 20.0, quantity:30)
 
     @c1 = Customer.create!(first_name: 'Yo', last_name: 'Yoz', address: '123 Heyyo', city: 'Whoville', state: 'CO', zip: 12345)
     @c2 = Customer.create!(first_name: 'Hey', last_name: 'Heyz')
@@ -16,6 +20,8 @@ describe 'Admin Invoices Index Page' do
     @ii_1 = InvoiceItem.create!(invoice_id: @i1.id, item_id: @item_1.id, quantity: 12, unit_price: 2, status: 0)
     @ii_2 = InvoiceItem.create!(invoice_id: @i1.id, item_id: @item_2.id, quantity: 6, unit_price: 1, status: 1)
     @ii_3 = InvoiceItem.create!(invoice_id: @i2.id, item_id: @item_2.id, quantity: 87, unit_price: 12, status: 2)
+
+    @t1 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @i1.id)
 
     visit admin_invoice_path(@i1)
   end
@@ -42,21 +48,15 @@ describe 'Admin Invoices Index Page' do
     expect(page).to have_content(@ii_1.quantity)
     expect(page).to have_content(@ii_2.quantity)
 
-    expect(page).to have_content("$#{@ii_1.unit_price}")
-    expect(page).to have_content("$#{@ii_2.unit_price}")
+    # expect(page).to have_content("#{number_to_currency(@ii_1.unit_price)}")
+    # expect(page).to have_content("#{number_to_currency(@ii_2.unit_price)}")
 
     expect(page).to have_content(@ii_1.status)
     expect(page).to have_content(@ii_2.status)
 
     expect(page).to_not have_content(@ii_3.quantity)
-    expect(page).to_not have_content("$#{@ii_3.unit_price}")
+    # expect(page).to_not have_content("#{number_to_currency(@ii_3.unit_price)}")
     expect(page).to_not have_content(@ii_3.status)
-  end
-
-  it 'should display the total revenue the invoice will generate' do
-    expect(page).to have_content("Total Revenue: $#{@i1.total_revenue}")
-
-    expect(page).to_not have_content(@i2.total_revenue)
   end
 
   it 'should have status as a select field that updates the invoices status' do
@@ -68,6 +68,11 @@ describe 'Admin Invoices Index Page' do
       expect(current_path).to eq(admin_invoice_path(@i1))
       expect(@i1.status).to eq('complete')
     end
+  end
+
+  it 'should display the total revenue of the invoice with discount included' do
+    # expect(page).to have_content("Total Revenue Before Discount: #{number_to_currency(@i1.revenue_before_discount)}")
+    # expect(page).to have_content("Total Revenue After Discount: #{number_to_currency(@i1.total_revenue)}")
   end
 end
 

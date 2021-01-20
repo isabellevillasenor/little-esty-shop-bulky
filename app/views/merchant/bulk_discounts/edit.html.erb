@@ -10,4 +10,8 @@
   </nav>
 </div>
 
-<%= render partial: 'form', locals: { method: :patch, url: merchant_bulk_discount_path(@merchant, @discount), class: 'merchant_discount_form', local: true, model: @bulk_discount } %>
+<%= render partial: 'form', locals: { method: :patch, 
+                                      url: merchant_bulk_discount_path(@merchant, @discount), 
+                                      class: 'merchant_discount_form', 
+                                      local: true, 
+                                      model: @bulk_discount } %>

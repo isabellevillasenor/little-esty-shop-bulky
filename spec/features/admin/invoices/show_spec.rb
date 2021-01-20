@@ -1,4 +1,5 @@
 require 'rails_helper'
+# include ActionView::Helpers::NumberHelper
 
 describe 'Admin Invoices Index Page' do
   before :each do

@@ -53,7 +53,7 @@ describe Customer do
       end
     end
 
-    describe "#number_of_transactions" do
+    describe '#number_of_transactions' do
       it 'should return the number of successful transactions' do
         expect(@customer_1.number_of_transactions).to eq(2)
       end

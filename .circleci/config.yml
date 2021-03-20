@@ -41,3 +41,4 @@ jobs:
       - run: bundle exec rails db:schema:load --trace
 
       - run: bundle exec rspec
+      
